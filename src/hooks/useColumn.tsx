@@ -6,7 +6,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowDown, ArrowUp, ChevronDown, ChevronUp } from "lucide-react";
 import { useMemo } from "react";
-import useWindow from "./useWindow";
 
 const useColumns = () => {
 	const columnsData = useMemo(() => {
@@ -102,7 +101,7 @@ const useColumns = () => {
 							}
 							className="p-0 hover:bg-transparent"
 						>
-							{useWindow() === "desktop" ? "Price (USD)" : "$ (USD)"}
+							Price (USD)
 							{column.getIsSorted() === "asc" ? (
 								<ArrowDown className="ml-2 h-4 w-4" />
 							) : (
@@ -171,7 +170,7 @@ const useColumns = () => {
 							}
 							className="p-0 hover:bg-transparent"
 						>
-							{useWindow() === "desktop" ? "Price (BTC)" : "$ (BTC)"}
+							Price (BTC)
 							{column.getIsSorted() === "asc" ? (
 								<ArrowDown className="ml-2 h-4 w-4" />
 							) : (
@@ -202,7 +201,7 @@ const useColumns = () => {
 							}
 							className="p-0 hover:bg-transparent"
 						>
-							{useWindow() === "desktop" ? "Market Cap (USD)" : "M.C (USD)"}
+							Market Cap (USD)
 							{column.getIsSorted() === "asc" ? (
 								<ArrowDown className="ml-2 h-4 w-4" />
 							) : (
@@ -233,7 +232,7 @@ const useColumns = () => {
 				},
 			},
 		] as ColumnDef<any>[];
-	}, [useWindow()]);
+	}, []);
 
 	return { columnsData };
 };
