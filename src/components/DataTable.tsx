@@ -22,8 +22,8 @@ import {
 } from "@/components/ui/table";
 import React from "react";
 import { Search } from "@/components/ui/search";
-import { Badge } from "./ui/badge";
-import { Button } from "./ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
 	ArrowBigLeftDash,
@@ -32,6 +32,7 @@ import {
 	ChevronRight,
 	CloudDownload,
 	ListFilterIcon,
+	Menu,
 	Plus,
 	Trash,
 } from "lucide-react";
@@ -42,6 +43,12 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "./ui/select";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface TableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
@@ -105,29 +112,66 @@ export default function DataTable<TData, TValue>({
 						className="w-full drop-shadow-md"
 					/>
 				</div>
-				<div className="flex flex-row gap-4 w-2/4 text-gray-700 justify-end font-medium text-sm">
+				<div className="hidden flex-row gap-4 w-2/4 text-gray-700 justify-end font-medium text-sm sm:flex">
 					<Button variant="ghost" className="flex flex-row items-center gap-2">
 						<Trash size={20} />
-						<p className="text-wrap lg:block sm:hidden">Delete</p>
+						<p className="text-wrap hidden lg:block">Delete</p>
 					</Button>
 					<Button variant="ghost" className="flex flex-row items-center gap-2">
 						<ListFilterIcon size={20} />
-						<p className="text-wrap lg:block sm:hidden">Filter</p>
+						<p className="text-wrap hidden lg:block">Filter</p>
 					</Button>
 					<Button
 						variant="outline"
 						className="flex flex-row items-center gap-2"
 					>
 						<CloudDownload size={20} />
-						<p className="text-wrap lg:block sm:hidden">Export</p>
+						<p className="text-wrap hidden lg:block">Export</p>
 					</Button>
 					<Button
 						className="flex flex-row items-center gap-2 bg-[rgb(0,112,255)] hover:bg-[rgb(0,102,255)] text-white"
 						variant="secondary"
 					>
 						<Plus size={20} />
-						<p className="text-wrap lg:block sm:hidden">Add New Coin</p>
+						<p className="text-wrap hidden xl:flex">Add New Coin</p>
 					</Button>
+				</div>
+				<div className="flex sm:hidden">
+					<DropdownMenu>
+						<DropdownMenuTrigger asChild>
+							<Button variant="outline" className="flex flex-row items-center">
+								<Menu size={20} />
+							</Button>
+						</DropdownMenuTrigger>
+						<DropdownMenuContent>
+							<DropdownMenuItem className="flex justify-center">
+								<Button variant="outline" className="flex flex-row items-center">
+									<Trash size={20} />
+								</Button>
+							</DropdownMenuItem>
+							<DropdownMenuItem className="flex justify-center">
+								<Button variant="outline" className="flex flex-row items-center">
+									<ListFilterIcon size={20} />
+								</Button>
+							</DropdownMenuItem>
+							<DropdownMenuItem className="flex justify-center">
+								<Button
+									variant="outline"
+									className="flex flex-row items-center"
+								>
+									<CloudDownload size={20} />
+								</Button>
+							</DropdownMenuItem>
+							<DropdownMenuItem className="flex justify-center">
+								<Button
+									className="flex flex-row items-center bg-[rgb(0,112,255)] hover:bg-[rgb(0,102,255)] text-white"
+									variant="secondary"
+								>
+									<Plus size={20} />
+								</Button>
+							</DropdownMenuItem>
+						</DropdownMenuContent>
+					</DropdownMenu>
 				</div>
 			</div>
 			<div className="border">
@@ -207,8 +251,8 @@ export default function DataTable<TData, TValue>({
 					</TableBody>
 				</Table>
 			</div>
-			<div className="flex items-center justify-between p-4">
-				<div className=" text-sm text-muted-foreground">
+			<div className="flex items-center p-4 justify-center sm:justify-between">
+				<div className="text-sm text-muted-foreground hidden sm:flex">
 					{table.getFilteredSelectedRowModel().rows.length} of{" "}
 					{table.getFilteredRowModel().rows.length} row(s) selected.
 				</div>
@@ -254,7 +298,7 @@ export default function DataTable<TData, TValue>({
 						<ArrowBigRightDash className="h-4 w-4" />
 					</Button>
 				</div>
-				<div className="flex flex-row items-center gap-2">
+				<div className="flex-row items-center gap-2 hidden sm:flex">
 					<p className="text-sm font-medium">Rows per page</p>
 					<Select
 						value={`${table.getState().pagination.pageSize}`}
